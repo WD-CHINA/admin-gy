@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Version: 2.0
+ * @Autor: RM
+ * @Date: 2022-02-17 10:31:59
+ * @LastEditors: RM
+ * @LastEditTime: 2022-02-17 10:58:48
+-->
 <template>
   <div class="app-container">
     <el-table
@@ -15,7 +23,7 @@
       </el-table-column>
       <el-table-column label="Title">
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          {{ scope.row.name }}
         </template>
       </el-table-column>
       <el-table-column label="Author" width="110" align="center">
@@ -44,7 +52,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import { memberGet } from '@/api/user'
 
 export default {
   filters: {
@@ -69,8 +77,11 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
+      memberGet({
+        current:0,
+        size:10
+      }).then(response => {
+        this.list = response
         this.listLoading = false
       })
     }
